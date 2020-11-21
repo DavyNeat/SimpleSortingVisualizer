@@ -1,7 +1,7 @@
-//import java.util.Thread;
 import javax.swing.JFrame;
 
-public class InsertionSort implements Runnable, Sort{
+public class InsertionSort extends Sort
+{
 	
 	private int nums[];
 	private SortingCanvas myCanvas;

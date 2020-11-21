@@ -36,6 +36,8 @@ public class VisualizerFrame extends JFrame implements ActionListener{
 	private SortingCanvas sortVisual;
 	private int nums[] = new int[100];
 	Random rand = new Random();
+	Thread mySort = null;
+	Sort test = null;
 	
 	VisualizerFrame()
 	{
@@ -89,11 +91,10 @@ public class VisualizerFrame extends JFrame implements ActionListener{
 	{
 		try
 		{
-			Thread mySort;
 			
 			if(event.getSource() == beginSort)
 			{
-				Sort test = new InsertionSort(nums, sortVisual);
+				test = new InsertionSort(nums, sortVisual);
 				mySort = new Thread(test);
 				mySort.start();
 				
@@ -104,7 +105,9 @@ public class VisualizerFrame extends JFrame implements ActionListener{
 			{
 				if(mySort != null)
 				{
-					
+					System.out.println("sort not null");
+					test.terminate();
+					mySort.join();
 				}
 				for(int i = 0; i < nums.length; i++)
 				{
@@ -113,7 +116,7 @@ public class VisualizerFrame extends JFrame implements ActionListener{
 				sortVisual.redraw();
 			}
 		}
-		catch(NullPointerException except)
+		catch(NullPointerException | InterruptedException except)
         {
             JOptionPane.showMessageDialog(this, 
                         "Error", 
@@ -126,26 +129,4 @@ public class VisualizerFrame extends JFrame implements ActionListener{
 	{
 		sortVisual.redraw();
 	}
-	/*
-	private static void sleep(long millies) {
-		try {
-			Thread.sleep(millies);
-		} catch (InterruptedException e) {
-			System.out.println("Thread is interrupted");
-			Thread.currentThread().interrupt();
-		}
-	}
-	
-	public static void sleepy()
-	{
-		try
-		{
-			TimeUnit.SECONDS.sleep(1);
-		}
-		catch(InterruptedException ex)
-		{
-			Thread.currentThread().interrupt();
-		}
-	}*/
-	
 }

@@ -9,5 +9,5 @@ abstract class Sort implements Runnable
 		running = false;
 	}
 	
-	public void run();
+	abstract public void run();
 }
