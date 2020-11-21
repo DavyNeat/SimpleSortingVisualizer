@@ -19,11 +19,11 @@ import java.util.Timer;
 import java.util.TimerTask;
 import javax.swing.*;
 
-public class Visualizer extends JFrame implements ActionListener{
+public class VisualizerFrame extends JFrame implements ActionListener{
 	
 	public static void main(String args[])
 	{
-		Visualizer sorter = new Visualizer();
+		VisualizerFrame sorter = new VisualizerFrame();
 		sorter.setSize(1000, 1000);
 		sorter.setVisible(true);
 		sorter.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -37,7 +37,7 @@ public class Visualizer extends JFrame implements ActionListener{
 	private int nums[] = new int[100];
 	Random rand = new Random();
 	
-	Visualizer()
+	VisualizerFrame()
 	{
 			setTitle("Sorting Visualizer");
 			GridBagConstraints layoutConst = new GridBagConstraints();
@@ -89,48 +89,29 @@ public class Visualizer extends JFrame implements ActionListener{
 	{
 		try
 		{
+			Thread mySort;
+			
 			if(event.getSource() == beginSort)
 			{
-				//insertionSort();
+				Sort test = new InsertionSort(nums, sortVisual);
+				mySort = new Thread(test);
+				mySort.start();
 				
-				
-				Timer timer = new Timer();
-				
-				for(int i = 1; i < nums.length; i++)
-				{
-					int key = nums[i];
-					int j = i - 1;
-					
-					for(; j >= 0 && nums[j] > key; j--)
-					{
-						nums[j + 1] = nums[j];
-						
-						timer.schedule(new TimerTask()
-						{
-						
-							@Override
-							public void run()
-							{
-								sortVisual.repaint();
-							}
-						
-						
-						}, 1000);
-						
-					}
-					
-					nums[j + 1] = key;
-					
-					
-				}				
-				
-				
-				System.out.println("beginSort");
 			}
 			else if(event.getSource() == nextSort)
 				System.out.println("nextSort");
 			else if(event.getSource() == randomizeNums)
-				System.out.println("randomizeNums");
+			{
+				if(mySort != null)
+				{
+					
+				}
+				for(int i = 0; i < nums.length; i++)
+				{
+					nums[i] = rand.nextInt(549) + 1;
+				}
+				sortVisual.redraw();
+			}
 		}
 		catch(NullPointerException except)
         {
@@ -141,59 +122,11 @@ public class Visualizer extends JFrame implements ActionListener{
         }
 	}
 	
-	public void insertionSort()
+	public void redraw()
 	{
-		//new Thread()
-		//{
-			//public void run()
-			//{
-				Timer timer = new Timer();
-				
-				for(int i = 1; i < nums.length; i++)
-				{
-					int key = nums[i];
-					int j = i - 1;
-					
-					for(; j >= 0 && nums[j] > key; j--)
-					{
-						nums[j + 1] = nums[j];
-						//SwingUtilities.invokeLater(new Runnable(){
-							//sortVisual.repaint();
-						timer.schedule(new TimerTask()
-						{
-						
-							@Override
-							public void run()
-							{
-								sortVisual.repaint();
-							}
-						
-						
-						}, 1000);
-						//}
-						//Thread.sleep(1000);
-
-						//sortVisual.redraw();
-						//sleep(10);
-					}
-					
-					nums[j + 1] = key;
-					//SwingUtilities.invokeLater(new Runnable(){
-						//sortVisual.repaint();
-					//}
-					//Thread.sleep(1000);
-					//sortVisual.repaint();
-					//sleepy();
-					
-				}
-				//SwingUtilities.invokeLater(new Runnable(){
-					//sortVisual.repaint();
-				//}
-				//sortVisual.redraw();
-			//}
-		//}.run();
+		sortVisual.redraw();
 	}
-	
+	/*
 	private static void sleep(long millies) {
 		try {
 			Thread.sleep(millies);
@@ -213,6 +146,6 @@ public class Visualizer extends JFrame implements ActionListener{
 		{
 			Thread.currentThread().interrupt();
 		}
-	}
+	}*/
 	
 }

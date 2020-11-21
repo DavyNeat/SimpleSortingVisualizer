@@ -2,7 +2,8 @@ import java.awt.*;
 import javax.swing.*;
 import java.util.concurrent.TimeUnit;
 
-public class SortingCanvas extends JPanel{
+public class SortingCanvas extends JPanel
+{
 	
 	private int nums[];
 	
@@ -31,20 +32,17 @@ public class SortingCanvas extends JPanel{
 			g2.fill(new Rectangle(i * rectWidth, (600 - nums[i]), rectWidth, nums[i]));
 			g2.setPaint(Color.white);
 			g2.fill(new Rectangle(i * rectWidth, (600 - nums[i]), 1, nums[i]));
-		}
-		
-		//Thread thr = new Thread(this);
-        //thr.start();		
+		}		
 	}
 	
-	public void redraw() {
-        //System.out.println("test1 " + test1Count + " is this on the EDT? :" + SwingUtilities.isEventDispatchThread());
+	public void redraw() 
+	{
+		repaint();
         try {
-            TimeUnit.MILLISECONDS.sleep(100);
+            TimeUnit.MILLISECONDS.sleep(10);
         }
         catch (InterruptedException e) {
             System.out.println("Interrupted");
-        }
-        repaint();
+        }   
     }
 }
