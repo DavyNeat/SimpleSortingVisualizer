@@ -35,6 +35,7 @@ public class VisualizerFrame extends JFrame implements ActionListener{
 	private JButton randomizeNums;
 	private SortingCanvas sortVisual;
 	private int nums[] = new int[100];
+	private int sortSelection, maxSorts;
 	Random rand = new Random();
 	Thread mySort = null;
 	Sort test = null;
@@ -48,7 +49,7 @@ public class VisualizerFrame extends JFrame implements ActionListener{
 			layoutConst.insets = new Insets(10, 10, 0, 0);
 			layoutConst.gridx = 0;
 			layoutConst.gridy = 0;
-			currentSort = new JLabel("-NULL-");
+			currentSort = new JLabel("Insertion Sort");
 			add(currentSort, layoutConst);
 			
 			layoutConst.gridx = 0;
@@ -73,6 +74,8 @@ public class VisualizerFrame extends JFrame implements ActionListener{
 			layoutConst.gridx = 1;
 			sortVisual = new SortingCanvas();
 			
+			sortSelection = 1;
+			maxSorts = 2;
 			for(int i = 0; i < nums.length; i++)
 			{
 				nums[i] = rand.nextInt(549) + 1;
@@ -94,20 +97,48 @@ public class VisualizerFrame extends JFrame implements ActionListener{
 			
 			if(event.getSource() == beginSort)
 			{
-				test = new InsertionSort(nums, sortVisual);
-				mySort = new Thread(test);
+				switch(sortSelection)
+				{
+					case 1:
+						System.out.println("InsertionSort");
+						test = new InsertionSort(nums, sortVisual);
+						mySort = new Thread(test);
+						break;
+					case 2:
+						System.out.println("SelectionSort");
+						test = new SelectionSort(nums, sortVisual);
+						mySort = new Thread(test);
+						break;
+					default:
+						break;
+				}
 				mySort.start();
-				
 			}
 			else if(event.getSource() == nextSort)
-				System.out.println("nextSort");
+			{
+				sortSelection++;
+				if(sortSelection > 2)
+					sortSelection = 1;
+					
+				switch(sortSelection)
+				{
+					case 1:
+						currentSort.setText("Insertion Sort");
+						break;
+					case 2:
+						currentSort.setText("Selection Sort");
+						break;
+					default:
+						break;
+				}
+			}
 			else if(event.getSource() == randomizeNums)
 			{
 				if(mySort != null)
 				{
-					System.out.println("sort not null");
 					test.terminate();
 					mySort.join();
+					mySort = null;
 				}
 				for(int i = 0; i < nums.length; i++)
 				{
