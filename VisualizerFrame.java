@@ -100,12 +100,10 @@ public class VisualizerFrame extends JFrame implements ActionListener{
 				switch(sortSelection)
 				{
 					case 1:
-						System.out.println("InsertionSort");
 						test = new InsertionSort(nums, sortVisual);
 						mySort = new Thread(test);
 						break;
 					case 2:
-						System.out.println("SelectionSort");
 						test = new SelectionSort(nums, sortVisual);
 						mySort = new Thread(test);
 						break;
