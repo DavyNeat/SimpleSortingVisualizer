@@ -107,6 +107,10 @@ public class VisualizerFrame extends JFrame implements ActionListener{
 						test = new SelectionSort(nums, sortVisual);
 						mySort = new Thread(test);
 						break;
+					case 3:
+						test = new MergeSort(nums, sortVisual);
+						mySort = new Thread(test);
+						break;
 					default:
 						break;
 				}
@@ -115,7 +119,7 @@ public class VisualizerFrame extends JFrame implements ActionListener{
 			else if(event.getSource() == nextSort)
 			{
 				sortSelection++;
-				if(sortSelection > 2)
+				if(sortSelection > 3)
 					sortSelection = 1;
 					
 				switch(sortSelection)
@@ -125,6 +129,9 @@ public class VisualizerFrame extends JFrame implements ActionListener{
 						break;
 					case 2:
 						currentSort.setText("Selection Sort");
+						break;
+					case 3:
+						currentSort.setText("Merge Sort");
 						break;
 					default:
 						break;
