@@ -87,6 +87,8 @@ public class VisualizerFrame extends JFrame implements ActionListener{
 			layoutConst.gridwidth = 4;
 			add(sortVisual, layoutConst);
 			
+			test = new InsertionSort(nums, sortVisual);
+			mySort = new Thread(test);
 	}
 	
 	@Override
@@ -95,7 +97,7 @@ public class VisualizerFrame extends JFrame implements ActionListener{
 		try
 		{
 			
-			if(event.getSource() == beginSort)
+			if((event.getSource() == beginSort) && !(mySort.isAlive()))
 			{
 				switch(sortSelection)
 				{
@@ -111,6 +113,10 @@ public class VisualizerFrame extends JFrame implements ActionListener{
 						test = new MergeSort(nums, sortVisual);
 						mySort = new Thread(test);
 						break;
+					case 4:
+						test = new ShellSort(nums, sortVisual);
+						mySort = new Thread(test);
+						break;
 					default:
 						break;
 				}
@@ -119,9 +125,8 @@ public class VisualizerFrame extends JFrame implements ActionListener{
 			else if(event.getSource() == nextSort)
 			{
 				sortSelection++;
-				if(sortSelection > 3)
+				if(sortSelection > 4)
 					sortSelection = 1;
-					
 				switch(sortSelection)
 				{
 					case 1:
@@ -132,6 +137,9 @@ public class VisualizerFrame extends JFrame implements ActionListener{
 						break;
 					case 3:
 						currentSort.setText("Merge Sort");
+						break;
+					case 4:
+						currentSort.setText("Shell Sort");
 						break;
 					default:
 						break;
@@ -145,11 +153,35 @@ public class VisualizerFrame extends JFrame implements ActionListener{
 					mySort.join();
 					mySort = null;
 				}
+				
 				for(int i = 0; i < nums.length; i++)
 				{
 					nums[i] = rand.nextInt(549) + 1;
 				}
+				
 				sortVisual.redraw();
+				
+				switch(sortSelection)
+				{
+					case 1:
+						test = new InsertionSort(nums, sortVisual);
+						mySort = new Thread(test);
+						break;
+					case 2:
+						test = new SelectionSort(nums, sortVisual);
+						mySort = new Thread(test);
+						break;
+					case 3:
+						test = new MergeSort(nums, sortVisual);
+						mySort = new Thread(test);
+						break;
+					case 4:
+						test = new ShellSort(nums, sortVisual);
+						mySort = new Thread(test);
+						break;
+					default:
+						break;
+				}
 			}
 		}
 		catch(NullPointerException | InterruptedException except)
