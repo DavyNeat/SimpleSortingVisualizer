@@ -39,7 +39,7 @@ public class SortingCanvas extends JPanel
 	{
 		repaint();
         try {
-            TimeUnit.MILLISECONDS.sleep(10);
+            TimeUnit.MILLISECONDS.sleep(50);
         }
         catch (InterruptedException e) {
             System.out.println("Interrupted");

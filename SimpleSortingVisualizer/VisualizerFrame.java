@@ -117,6 +117,10 @@ public class VisualizerFrame extends JFrame implements ActionListener{
 						test = new ShellSort(nums, sortVisual);
 						mySort = new Thread(test);
 						break;
+					case 5:
+						test = new QuickSort(nums, sortVisual);
+						mySort = new Thread(test);
+						break;
 					default:
 						break;
 				}
@@ -124,8 +128,10 @@ public class VisualizerFrame extends JFrame implements ActionListener{
 			}
 			else if(event.getSource() == nextSort)
 			{
+				System.out.println("Is alive?" + mySort.isAlive());
+				
 				sortSelection++;
-				if(sortSelection > 4)
+				if(sortSelection > 5)
 					sortSelection = 1;
 				switch(sortSelection)
 				{
@@ -140,6 +146,9 @@ public class VisualizerFrame extends JFrame implements ActionListener{
 						break;
 					case 4:
 						currentSort.setText("Shell Sort");
+						break;
+					case 5:
+						currentSort.setText("Quick Sort");
 						break;
 					default:
 						break;
@@ -177,6 +186,10 @@ public class VisualizerFrame extends JFrame implements ActionListener{
 						break;
 					case 4:
 						test = new ShellSort(nums, sortVisual);
+						mySort = new Thread(test);
+						break;
+					case 5:
+						test = new QuickSort(nums, sortVisual);
 						mySort = new Thread(test);
 						break;
 					default:
