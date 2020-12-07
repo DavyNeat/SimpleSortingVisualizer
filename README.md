@@ -1,3 +1,3 @@
 # SimpleSortingVisualizer
 A simple personal project to visualize sorting algorithms.
-Compile and run using the VisualizerFrame
+Compile and run the VisualizerFrame
