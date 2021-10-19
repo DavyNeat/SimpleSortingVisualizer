@@ -1,3 +1,7 @@
 # SimpleSortingVisualizer
 A simple personal project to visualize sorting algorithms.
-Compile and run using the VisualizerFrame
+
+Run with Visualizer.jar
+or
+Compile with "javac VisualizerFrame.java"
+Run with "java VisualizerFrame"
